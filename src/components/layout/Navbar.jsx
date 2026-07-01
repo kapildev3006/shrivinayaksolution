@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { HiMenuAlt3, HiX } from 'react-icons/hi'
-import { HiMoon, HiSun } from 'react-icons/hi2'
+import { HiMenuAlt3, HiX, HiHome, HiPhotograph, HiInformationCircle, HiPhone } from 'react-icons/hi'
+import { HiMoon, HiSun, HiWrenchScrewdriver } from 'react-icons/hi2'
 import { cn } from '@lib/utils'
 import { useTheme } from '../../context/ThemeContext'
 import { useData } from '../../context/DataContext'
@@ -10,11 +10,11 @@ import companyLogoFallback from '@assets/logo - Copy.jpeg'
 
 /* ─── Nav links ─────────────────────────────────────────────────────────── */
 const NAV_LINKS = [
-  { label: 'Home',     to: '/' },
-  { label: 'Services', to: '/services' },
-  { label: 'Gallery',  to: '/gallery' },
-  { label: 'About',    to: '/about' },
-  { label: 'Contact',  to: '/contact' },
+  { label: 'Home',     to: '/',         icon: HiHome },
+  { label: 'Services', to: '/services', icon: HiWrenchScrewdriver },
+  { label: 'Gallery',  to: '/gallery',  icon: HiPhotograph },
+  { label: 'About',    to: '/about',    icon: HiInformationCircle },
+  { label: 'Contact',  to: '/contact',  icon: HiPhone },
 ]
 
 /* ─── Framer-Motion variants ─────────────────────────────────────────────── */
@@ -58,8 +58,8 @@ function DarkModeToggle() {
     >
       {/* Track icons */}
       <span className="absolute inset-0 flex items-center justify-between px-1.5 pointer-events-none">
-        <HiMoon size={13} className={cn('transition-opacity duration-300', isDark ? 'opacity-80 text-green-400' : 'opacity-0')} />
-        <HiSun  size={13} className={cn('transition-opacity duration-300', isDark ? 'opacity-0' : 'opacity-80 text-green-600')} />
+        <HiSun  size={13} className={cn('transition-opacity duration-300', isDark ? 'opacity-80 text-yellow-500' : 'opacity-0')} />
+        <HiMoon size={13} className={cn('transition-opacity duration-300', isDark ? 'opacity-0' : 'opacity-80 text-indigo-500')} />
       </span>
       {/* Thumb */}
       <motion.span
@@ -108,13 +108,13 @@ function Logo({ scrolled }) {
 }
 
 /* ─── Desktop NavLink ────────────────────────────────────────────────────── */
-function DesktopLink({ to, label, scrolled }) {
+function DesktopLink({ to, label, icon: Icon, scrolled }) {
   return (
     <NavLink
       to={to}
       end={to === '/'}
       className={({ isActive }) =>
-        cn('relative px-1 py-1.5 text-sm font-medium transition-colors duration-200 group',
+        cn('relative px-2 py-1.5 text-[15px] font-medium transition-colors duration-200 group flex items-center gap-1.5',
           isActive 
             ? 'text-green-500' 
             : scrolled 
@@ -125,6 +125,7 @@ function DesktopLink({ to, label, scrolled }) {
     >
       {({ isActive }) => (
         <>
+          <Icon className={cn('text-lg transition-transform duration-300 group-hover:scale-110', isActive ? 'text-green-500' : '')} />
           {label}
           <span className={cn('absolute bottom-0 left-0 h-[2px] rounded-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-300',
             isActive ? 'w-full' : 'w-0 group-hover:w-full')} />
@@ -135,7 +136,7 @@ function DesktopLink({ to, label, scrolled }) {
 }
 
 /* ─── Mobile NavLink ─────────────────────────────────────────────────────── */
-function MobileLink({ to, label, index, onClick }) {
+function MobileLink({ to, label, icon: Icon, index, onClick }) {
   return (
     <motion.div custom={index} variants={linkItemVariants} initial="hidden" animate="visible">
       <NavLink
@@ -143,10 +144,11 @@ function MobileLink({ to, label, index, onClick }) {
         end={to === '/'}
         onClick={onClick}
         className={({ isActive }) =>
-          cn('flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200',
+          cn('flex items-center gap-3 px-4 py-3.5 rounded-xl text-[15px] font-medium transition-all duration-200',
             isActive ? 'bg-green-500/10 text-green-500 border border-green-500/20' : 'text-gray-700 dark:text-white/70 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/5')
         }
       >
+        <Icon className="text-xl" />
         {label}
       </NavLink>
     </motion.div>
@@ -156,31 +158,70 @@ function MobileLink({ to, label, index, onClick }) {
 /* ─── Main Navbar ─────────────────────────────────────────────────────────── */
 export default function Navbar() {
   const [scrolled, setScrolled]     = useState(false)
+  const [isHidden, setIsHidden]     = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
+  
+  const lastScrollY = useRef(0)
   
   // The navbar should have a solid background if we are scrolled down OR if we are not on the homepage
   const isScrolledStyle = scrolled || location.pathname !== '/'
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => {
+      const currentScrollY = window.scrollY
+      
+      // Background styling threshold
+      setScrolled(currentScrollY > 40)
+
+      // Auto-hide logic: Hide if scrolling down and past 100px. Show if scrolling up.
+      // Don't hide if mobile menu is open.
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100 && !mobileOpen) {
+        setIsHidden(true)
+      } else if (currentScrollY < lastScrollY.current) {
+        setIsHidden(false)
+      }
+      
+      lastScrollY.current = currentScrollY
+    }
+    
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [mobileOpen])
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
+  useEffect(() => {
+    const handleToggle = () => setIsHidden(prev => !prev)
+    
+    const handleGlobalClick = (e) => {
+      // Ignore clicks on interactive elements (links, buttons, inputs) and inside cards
+      if (e.target.closest('a, button, input, select, textarea, [role="button"], .group')) {
+        return;
+      }
+      setIsHidden(prev => !prev)
+    }
+
+    window.addEventListener('toggleNavbar', handleToggle)
+    document.addEventListener('click', handleGlobalClick)
+
+    return () => {
+      window.removeEventListener('toggleNavbar', handleToggle)
+      document.removeEventListener('click', handleGlobalClick)
+    }
+  }, [])
+
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: isHidden ? '-100%' : 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+          'fixed top-0 left-0 right-0 z-[150] transition-colors duration-500',
           isScrolledStyle
             ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-xl border-b border-white/[0.06] shadow-2xl shadow-black/40'
             : 'bg-transparent'
@@ -194,8 +235,8 @@ export default function Navbar() {
 
             {/* ── Desktop links ──────────────────────────────────── */}
             <nav className="hidden lg:flex items-center gap-8">
-              {NAV_LINKS.map(({ label, to }) => (
-                <DesktopLink key={to} to={to} label={label} scrolled={isScrolledStyle} />
+              {NAV_LINKS.map(({ label, to, icon }) => (
+                <DesktopLink key={to} to={to} label={label} icon={icon} scrolled={isScrolledStyle} />
               ))}
             </nav>
 
@@ -239,8 +280,8 @@ export default function Navbar() {
             <motion.div key="drawer" variants={drawerVariants} initial="hidden" animate="visible" exit="exit" className="lg:hidden overflow-hidden">
               <div className="bg-white/98 dark:bg-gray-950/98 backdrop-blur-xl border-t border-white/[0.06]">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1">
-                  {NAV_LINKS.map(({ label, to }, i) => (
-                    <MobileLink key={to} to={to} label={label} index={i} onClick={() => setMobileOpen(false)} />
+                  {NAV_LINKS.map(({ label, to, icon }, i) => (
+                    <MobileLink key={to} to={to} label={label} icon={icon} index={i} onClick={() => setMobileOpen(false)} />
                   ))}
                   {/* Mobile Dark Mode Toggle */}
                   <div className="pt-3 pb-2 flex items-center justify-between px-4 py-3.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">

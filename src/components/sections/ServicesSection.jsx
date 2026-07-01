@@ -97,10 +97,12 @@ function ServiceCard({ icon: Icon, title, desc, gradient, glowColor, borderColor
 
       {/* Card body */}
       <div
-        className="relative h-full rounded-2xl p-7 transition-all duration-500
+        className="relative h-full rounded-2xl p-6 transition-all duration-500
                    group-hover:-translate-y-1 
-                   bg-white/80 dark:bg-gray-900/85 
+                   bg-white dark:bg-gray-900/85 
                    border border-black/5 dark:border-white/[0.06] 
+                   shadow-[0_8px_30px_-4px_rgba(0,0,0,0.04)] dark:shadow-none
+                   hover:shadow-[0_12px_40px_-4px_rgba(0,0,0,0.08)] dark:hover:shadow-none
                    backdrop-blur-md"
       >
         {/* Glow on hover */}
@@ -172,7 +174,7 @@ export default function ServicesSection() {
     <section
       id="services"
       ref={ref}
-      className="relative py-24 lg:py-32 bg-white dark:bg-gray-950 overflow-hidden"
+      className="relative pt-12 lg:pt-16 pb-12 lg:pb-16 bg-gray-50 dark:bg-gray-950 overflow-hidden"
     >
       {/* ── Subtle background ──────────────────────────────────────── */}
       <div
@@ -193,7 +195,7 @@ export default function ServicesSection() {
         }}
       />
 
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
 
         {/* ── Section header ──────────────────────────────────────── */}
         <motion.div

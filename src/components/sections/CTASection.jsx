@@ -10,28 +10,28 @@ export default function CTASection() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section ref={ref} className="py-24 bg-white dark:bg-gray-950 relative overflow-hidden">
+    <section ref={ref} className="py-20 bg-white dark:bg-gray-950 relative overflow-hidden">
       <div className="w-full px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
-          className="relative rounded-[2.5rem] overflow-hidden px-8 py-20 lg:py-24 text-center border border-green-500/20 shadow-2xl shadow-emerald-900/40"
+          className="relative rounded-[2rem] overflow-hidden px-6 py-12 lg:py-16 text-center border border-green-500/20 shadow-xl shadow-emerald-900/30"
           style={{ background: 'linear-gradient(135deg, rgba(17,24,39,0.95) 0%, rgba(3,7,18,0.95) 100%)' }}
         >
           {/* Animated Glow Backgrounds */}
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-emerald-600/20 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-green-500/20 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-emerald-600/20 rounded-full blur-[80px] pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-green-500/20 rounded-full blur-[80px] pointer-events-none" />
           
           <div className="relative z-10 flex flex-col items-center">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4 tracking-tight">
               Need Precision<br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">
                 Engineering Solutions?
               </span>
             </h2>
             
-            <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-8 leading-relaxed font-light">
               Partner with Shri Vinayak Engineering Solutions for unparalleled quality, rapid turnaround times, and cost-effective industrial manufacturing.
             </p>
             

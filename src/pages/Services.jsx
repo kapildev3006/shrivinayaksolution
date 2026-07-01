@@ -5,7 +5,6 @@ import SEO from '@components/seo/SEO'
 import { staggerContainer, fadeUp, fadeIn } from '@utils/animations'
 
 import ServicesGrid from '@components/sections/ServicesGrid'
-import ServiceDetails from '@components/sections/ServiceDetails'
 import WorkflowTimeline from '@components/sections/WorkflowTimeline'
 import MachineryShowcase from '@components/sections/MachineryShowcase'
 import WhyChooseUsSection from '@components/sections/WhyChooseUsSection'
@@ -22,7 +21,7 @@ export default function Services() {
       />
 
       {/* ── Services Hero Section ────────────────────────────────────────── */}
-      <section className="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full h-[40vh] min-h-[350px] flex items-center justify-center overflow-hidden">
         
         {/* Background Image & Overlay */}
         <motion.div
@@ -53,7 +52,7 @@ export default function Services() {
             {/* Heading */}
             <motion.h1 
               variants={fadeUp}
-              className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-gray-900 dark:text-white mb-6"
+              className="text-5xl sm:text-6xl md:text-7xl font-black tracking-tight text-white mb-6"
             >
               Our{' '}
               <span
@@ -71,7 +70,7 @@ export default function Services() {
             {/* Subheading */}
             <motion.p 
               variants={fadeUp}
-              className="text-gray-700 dark:text-gray-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-md"
+              className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-lg"
             >
               Precision Welding, Engraving, Wirecut &amp; Manufacturing Solutions tailored to meet the highest industrial standards.
             </motion.p>
@@ -81,9 +80,6 @@ export default function Services() {
 
       {/* ── 2. Services Overview Grid ─────────────────────────────────────── */}
       <ServicesGrid />
-
-      {/* ── 3. Detailed Service Sections ──────────────────────────────────── */}
-      <ServiceDetails />
 
       {/* ── 4. Process Workflow ───────────────────────────────────────────── */}
       <WorkflowTimeline />

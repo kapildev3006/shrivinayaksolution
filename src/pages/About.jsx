@@ -1,10 +1,22 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import SEO from '@components/seo/SEO'
+import AboutSection from '@components/sections/AboutSection'
+import FutureVisionSection from '@components/sections/FutureVisionSection'
 import { staggerContainer, fadeUp, hoverLift } from '@utils/animations'
 import { useData } from '../context/DataContext'
 
 export default function About() {
   const { team } = useData();
+  const [expandedId, setExpandedId] = useState(null);
+
+  const toggleExpand = (index) => {
+    if (expandedId === index) {
+      setExpandedId(null);
+    } else {
+      setExpandedId(index);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white pt-28 pb-20 overflow-hidden relative">
@@ -20,6 +32,15 @@ export default function About() {
       <div
         className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[120px] pointer-events-none"
       />
+
+      <div className="relative z-10">
+        
+        {/* ── Company Description ────────────────────────────────────── */}
+        <div className="mb-8">
+          <AboutSection hideButtons={true} />
+        </div>
+
+      </div>
 
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -61,7 +82,7 @@ export default function About() {
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full"
         >
           {team && team.length > 0 ? team.map((member, index) => (
             <motion.div
@@ -83,7 +104,7 @@ export default function About() {
                 className="relative h-full rounded-3xl overflow-hidden flex flex-col transition-all duration-500 bg-white/80 dark:bg-gray-900/85 border border-black/5 dark:border-white/[0.06] backdrop-blur-md"
               >
                 {/* Image */}
-                <div className="w-full h-80 overflow-hidden relative">
+                <div className="w-full h-64 sm:h-72 overflow-hidden relative">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
                   <img
                     src={member.image}
@@ -93,20 +114,30 @@ export default function About() {
                     style={{ filter: 'brightness(0.9) contrast(1.1)' }}
                   />
                   {/* Bottom fade for smooth blend into card body */}
-                  <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white dark:from-gray-900 to-transparent z-10" />
+                  <div className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-t from-white dark:from-gray-900 to-transparent z-10 opacity-70" />
                 </div>
 
                 {/* Content */}
-                <div className="p-8 pt-2 flex flex-col flex-grow relative z-20">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                <div className="p-4 flex flex-col flex-grow relative z-20">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-0.5">
                     {member.name}
                   </h3>
-                  <p className="text-green-400 text-sm font-semibold tracking-wider uppercase mb-5">
+                  <p className="text-green-500 text-[11px] font-bold tracking-wider uppercase mb-2">
                     {member.designation}
                   </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
-                    {member.about}
-                  </p>
+                  <motion.div layout>
+                    <p className={`text-gray-600 dark:text-gray-400 text-xs leading-relaxed mb-3 transition-all duration-300 ${expandedId === index ? '' : 'line-clamp-3'}`}>
+                      {member.about}
+                    </p>
+                    {member.about && member.about.length > 120 && (
+                      <button 
+                        onClick={() => toggleExpand(index)}
+                        className="text-green-500 hover:text-green-400 text-xs font-bold uppercase tracking-widest flex items-center gap-1 transition-colors"
+                      >
+                        {expandedId === index ? 'Show Less' : 'Read More'}
+                      </button>
+                    )}
+                  </motion.div>
                 </div>
               </div>
             </motion.div>
@@ -119,6 +150,11 @@ export default function About() {
         
       </div>
       
+      {/* ── Future Vision Section ──────────────────────────────────── */}
+      <div className="relative z-10">
+        <FutureVisionSection />
+      </div>
+
     </div>
   )
 }

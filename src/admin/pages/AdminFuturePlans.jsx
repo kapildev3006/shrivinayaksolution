@@ -6,11 +6,10 @@ import GoalsTab from './tabs/GoalsTab';
 import InnovationTab from './tabs/InnovationTab';
 
 export default function AdminFuturePlans() {
-  const [activeTab, setActiveTab] = useState('vision');
+  const [activeTab, setActiveTab] = useState('machines');
 
   const tabs = [
-    { id: 'vision', label: 'Future Vision', icon: Target },
-    { id: 'machines', label: 'Upcoming Machines', icon: Factory },
+    { id: 'machines', label: 'Future Planning (Machines)', icon: Factory },
     { id: 'goals', label: 'Expansion Goals', icon: Rocket },
     { id: 'innovation', label: 'Innovation Section', icon: Lightbulb },
   ];
@@ -49,7 +48,6 @@ export default function AdminFuturePlans() {
 
       {/* Tab Content Area */}
       <div className="bg-transparent">
-        {activeTab === 'vision' && <FutureVisionTab />}
         {activeTab === 'machines' && <MachinesTab />}
         {activeTab === 'goals' && <GoalsTab />}
         {activeTab === 'innovation' && <InnovationTab />}

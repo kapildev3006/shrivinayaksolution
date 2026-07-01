@@ -109,6 +109,43 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  /* Global Theme-aware Scrollbars */
+  html, body {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+  
+  .dark html, .dark body {
+    scrollbar-color: #334155 transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 6px; /* Prevents scrollbar from touching sharp corners */
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+  }
+  
+  *::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  .dark *::-webkit-scrollbar-thumb {
+    background: #1e293b;
+  }
+  
+  .dark *::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+  }
 }
 
 /* ─── Custom utilities ───────────────────────────────────────────────────── */

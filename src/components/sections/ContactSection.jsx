@@ -122,7 +122,7 @@ export default function ContactSection() {
     <section
       id="contact"
       ref={ref}
-      className="relative py-24 lg:py-32 bg-white dark:bg-gray-950 overflow-hidden"
+      className="relative pt-12 lg:pt-16 pb-24 lg:pb-32 bg-gray-50 dark:bg-gray-950 overflow-hidden"
     >
       {/* ── Background Elements ────────────────────────────────────── */}
       <div
@@ -218,7 +218,7 @@ export default function ContactSection() {
             {/* Google Map */}
             <div className="w-full h-64 rounded-2xl overflow-hidden border border-black/10 dark:border-white/10 mt-2">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3509.309489508826!2d76.9208031!3d28.3999905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d3d573b06cf79%3A0x7d6a2f8b1a53303a!2sIMT%20Manesar%2C%20Gurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                src="https://www.google.com/maps?q=9WM7%2BVPX+Gurugram,+Haryana&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

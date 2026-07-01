@@ -83,7 +83,7 @@ export default function MachinesTab() {
       if (imageFile) data.append('image', imageFile);
 
       if (editingId) {
-        await axios.put(`$API_URL/machines/${editingId}`, data);
+        await axios.put(`${API_URL}/machines/${editingId}`, data);
         toast.success('Machine updated');
       } else {
         await axios.post(`${API_URL}/machines`, data);
@@ -101,7 +101,7 @@ export default function MachinesTab() {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this machine?')) return;
     try {
-      await axios.delete(`$API_URL/machines/${id}`);
+      await axios.delete(`${API_URL}/machines/${id}`);
       toast.success('Machine deleted');
       fetchMachines();
     } catch (error) {
@@ -126,8 +126,8 @@ export default function MachinesTab() {
     // Update backend order
     try {
       await Promise.all([
-        axios.put(`$API_URL/machines/${newMachines[index]._id}`, { order: index }),
-        axios.put(`$API_URL/machines/${newMachines[index + direction]._id}`, { order: index + direction })
+        axios.put(`${API_URL}/machines/${newMachines[index]._id}`, { order: index }),
+        axios.put(`${API_URL}/machines/${newMachines[index + direction]._id}`, { order: index + direction })
       ]);
       toast.success('Order updated');
     } catch (error) {

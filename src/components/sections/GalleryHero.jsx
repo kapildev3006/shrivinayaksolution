@@ -23,8 +23,8 @@ export default function GalleryHero() {
             filter: 'brightness(0.3) saturate(1.2)' 
           }}
         />
-        {/* Bottom gradient fade for smooth transition to next section */}
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white dark:from-gray-950 to-transparent" />
+        {/* Bottom gradient fade for smooth transition */}
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/80 to-transparent" />
       </motion.div>
 
       {/* Hero Content */}

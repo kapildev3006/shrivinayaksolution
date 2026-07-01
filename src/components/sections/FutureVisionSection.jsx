@@ -10,11 +10,6 @@ const ICON_MAP = {
 export default function FutureVisionSection() {
   const { futureVision, machines, goals, innovation } = useData();
 
-  // If no main vision is defined yet, don't render the section.
-  if (!futureVision || Object.keys(futureVision).length === 0) {
-    return null;
-  }
-
   const visibleMachines = machines ? machines.filter(m => !m.isHidden).sort((a, b) => a.order - b.order) : [];
 
   return (
@@ -32,36 +27,7 @@ export default function FutureVisionSection() {
 
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-32">
         
-        {/* 1. Future Vision Overarching Statement */}
-        <motion.div 
-          initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
-        >
-          <motion.div variants={fadeUp}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-8 bg-green-500/50" />
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-green-400">
-                {futureVision.subtitle || "Looking Ahead"}
-              </span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-tight">
-              {futureVision.title}
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed whitespace-pre-wrap">
-              {futureVision.description}
-            </p>
-          </motion.div>
-          
-          <motion.div variants={fadeIn} className="relative rounded-3xl overflow-hidden shadow-2xl h-[400px] lg:h-[500px]">
-            {futureVision.image ? (
-              <img src={futureVision.image} alt={futureVision.title} className="w-full h-full object-cover object-center" />
-            ) : (
-              <div className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-black/10 dark:border-white/10 flex items-center justify-center text-gray-700">Image not set</div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent opacity-80" />
-          </motion.div>
-        </motion.div>
+        {/* (Vision section removed per user request) */}
 
         {/* 2. Upcoming & New Machinery */}
         {visibleMachines.length > 0 && (
@@ -70,7 +36,18 @@ export default function FutureVisionSection() {
             variants={staggerContainer}
           >
             <motion.div variants={fadeUp} className="text-center mb-16">
-              <h3 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-4">Machinery Expansion</h3>
+              <h3 className="text-3xl sm:text-4xl font-black mb-4 drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] dark:drop-shadow-none">
+                <span
+                  style={{
+                    backgroundImage: 'linear-gradient(90deg, #4ade80, #10b981)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  Future Planning
+                </span>
+              </h3>
               <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Discover the latest cutting-edge equipment joining our workshop floor.</p>
             </motion.div>
             

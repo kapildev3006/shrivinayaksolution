@@ -59,7 +59,7 @@ const HIGHLIGHTS = [
 ]
 
 /* ─── About Section ──────────────────────────────────────────────────────── */
-export default function AboutSection() {
+export default function AboutSection({ hideButtons = false }) {
   const ref   = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const { siteContent } = useData();
@@ -70,7 +70,7 @@ export default function AboutSection() {
     <section
       id="about"
       ref={ref}
-      className="relative py-24 lg:py-32 bg-white dark:bg-gray-950 overflow-hidden"
+      className="relative pt-12 lg:pt-16 pb-12 lg:pb-16 bg-white dark:bg-gray-950 overflow-hidden"
     >
       {/* ── Subtle background glow ─────────────────────────────────── */}
       <div
@@ -88,16 +88,26 @@ export default function AboutSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, ease: EASE }}
-          className="flex items-center gap-3 mb-16"
+          className="flex items-center justify-center gap-4 sm:gap-6 mb-16"
         >
-          <div className="h-px w-10 bg-green-500/60 rounded-full" />
-          <span className="text-xs font-bold tracking-[0.22em] uppercase text-green-400">
-            {aboutContent.heading}
-          </span>
+          <div className="h-[3px] w-12 sm:w-24 bg-green-500/50 rounded-full" />
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] dark:drop-shadow-none">
+            <span
+              style={{
+                backgroundImage: 'linear-gradient(90deg, #4ade80, #10b981)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              {aboutContent.heading}
+            </span>
+          </h2>
+          <div className="h-[3px] w-12 sm:w-24 bg-green-500/50 rounded-full" />
         </motion.div>
 
         {/* ── Two-column grid ────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-16 items-start">
 
           {/* ════ LEFT — image column ═══════════════════════════════════ */}
           <motion.div
@@ -112,7 +122,7 @@ export default function AboutSection() {
                 src={aboutContent.image || aboutImg}
                 alt="Industrial Engineering Workshop"
                 loading="lazy"
-                className="w-full h-full object-cover rounded-2xl aspect-[4/5] lg:aspect-auto lg:h-[600px]"
+                className="w-full h-full object-cover rounded-2xl aspect-[4/5] lg:aspect-auto lg:h-[450px]"
                 style={{ filter: 'brightness(0.88) saturate(1.1)' }}
               />
 
@@ -121,7 +131,7 @@ export default function AboutSection() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    'linear-gradient(to top, rgba(2,6,23,0.75) 0%, transparent 55%)',
+                    'linear-gradient(to top, rgba(2,6,23,0.4) 0%, transparent 40%)',
                 }}
               />
 
@@ -177,7 +187,23 @@ export default function AboutSection() {
               animate={inView ? 'visible' : 'hidden'}
               className="text-3xl sm:text-4xl xl:text-[2.75rem] font-black leading-[1.12] tracking-tight text-gray-900 dark:text-white mb-5"
             >
-              {aboutContent.title}
+              {aboutContent.title.includes(',') ? (
+                <>
+                  {aboutContent.title.split(',')[0]},
+                  <span
+                    style={{
+                      backgroundImage: 'linear-gradient(90deg, #4ade80, #10b981)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    {aboutContent.title.substring(aboutContent.title.indexOf(',') + 1)}
+                  </span>
+                </>
+              ) : (
+                aboutContent.title
+              )}
             </motion.h2>
 
             {/* Body text */}
@@ -232,7 +258,7 @@ export default function AboutSection() {
                 backdropFilter: 'blur(16px)',
                 WebkitBackdropFilter: 'blur(16px)',
                 border: '1px solid rgba(34,197,94,0.15)',
-                boxShadow: '0 8px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.06)',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.06)',
               }}
             >
               <p className="text-xs font-bold tracking-widest uppercase text-green-400 mb-4">
@@ -254,43 +280,45 @@ export default function AboutSection() {
             </motion.div>
 
             {/* CTA */}
-            <motion.div
-              custom={4}
-              variants={fadeUp}
-              initial="hidden"
-              animate={inView ? 'visible' : 'hidden'}
-              className="flex flex-wrap gap-3"
-            >
-              <Link
-                to="/contact"
-                id="about-get-quote"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl
-                           font-bold text-sm tracking-wide text-gray-950
-                           shadow-lg shadow-emerald-600/30
-                           hover:shadow-emerald-500/50 hover:scale-[1.04]
-                           active:scale-[0.97] transition-all duration-200"
-                style={{
-                  backgroundImage:
-                    'linear-gradient(135deg,#4ade80 0%,#10b981 55%,#ea580c 100%)',
-                }}
+            {!hideButtons && (
+              <motion.div
+                custom={4}
+                variants={fadeUp}
+                initial="hidden"
+                animate={inView ? 'visible' : 'hidden'}
+                className="flex flex-wrap gap-3"
               >
-                <HiStar size={15} />
-                Get a Free Quote
-              </Link>
-              <Link
-                to="/about"
-                id="about-learn-more"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl
-                           font-semibold text-sm text-gray-900 dark:text-white
-                           border border-white/15 bg-black/5 dark:bg-white/5
-                           hover:bg-black/10 dark:bg-white/10 hover:border-white/25
-                           hover:scale-[1.03] active:scale-[0.97]
-                           transition-all duration-200"
-              >
-                Learn More
-                <HiArrowRight size={15} />
-              </Link>
-            </motion.div>
+                <Link
+                  to="/contact"
+                  id="about-get-quote"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl
+                             font-bold text-sm tracking-wide text-gray-950
+                             shadow-lg shadow-emerald-600/30
+                             hover:shadow-emerald-500/50 hover:scale-[1.04]
+                             active:scale-[0.97] transition-all duration-200"
+                  style={{
+                    backgroundImage:
+                      'linear-gradient(135deg,#4ade80 0%,#10b981 55%,#ea580c 100%)',
+                  }}
+                >
+                  <HiStar size={15} />
+                  Get a Free Quote
+                </Link>
+                <Link
+                  to="/about"
+                  id="about-learn-more"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl
+                             font-semibold text-sm text-gray-900 dark:text-white
+                             border border-white/15 bg-black/5 dark:bg-white/5
+                             hover:bg-black/10 dark:bg-white/10 hover:border-white/25
+                             hover:scale-[1.03] active:scale-[0.97]
+                             transition-all duration-200"
+                >
+                  Learn More
+                  <HiArrowRight size={15} />
+                </Link>
+              </motion.div>
+            )}
 
           </motion.div>
           {/* end right column */}

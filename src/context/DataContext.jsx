@@ -313,6 +313,42 @@ export const DataProvider = ({ children }) => {
     } catch (err) { console.error(err); }
   };
 
+  // Machines Methods (Future Planning)
+  const addMachine = async (machine) => {
+    try {
+      const isFormData = machine instanceof FormData;
+      const res = await fetch(`${API_URL}/machines`, {
+        method: 'POST',
+        headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
+        body: isFormData ? machine : JSON.stringify(machine)
+      });
+      if (res.ok) {
+        const newItem = await res.json();
+        setMachines((prev) => [...prev, { ...newItem, id: newItem._id }]);
+      }
+    } catch (err) { console.error(err); }
+  };
+  const updateMachine = async (id, updated) => {
+    try {
+      const isFormData = updated instanceof FormData;
+      const res = await fetch(`${API_URL}/machines/${id}`, {
+        method: 'PUT',
+        headers: isFormData ? undefined : { 'Content-Type': 'application/json' },
+        body: isFormData ? updated : JSON.stringify(updated)
+      });
+      if (res.ok) {
+        const newItem = await res.json();
+        setMachines((prev) => prev.map((m) => (m.id === id ? { ...newItem, id: newItem._id } : m)));
+      }
+    } catch (err) { console.error(err); }
+  };
+  const deleteMachine = async (id) => {
+    try {
+      const res = await fetch(`${API_URL}/machines/${id}`, { method: 'DELETE' });
+      if (res.ok) setMachines((prev) => prev.filter((m) => m.id !== id));
+    } catch (err) { console.error(err); }
+  };
+
   // Team Methods
   const addTeamMember = async (member) => {
     const isFormData = member instanceof FormData;
@@ -614,6 +650,9 @@ export const DataProvider = ({ children }) => {
     deleteService,
     updateSiteContent,
     deleteMessage,
+    addMachine,
+    updateMachine,
+    deleteMachine,
     addTeamMember,
     updateTeamMember,
     deleteTeamMember,

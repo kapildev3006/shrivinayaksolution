@@ -50,7 +50,7 @@ export default function GallerySection() {
     <section
       id="gallery"
       ref={ref}
-      className="relative py-24 lg:py-32 bg-white dark:bg-gray-950 overflow-hidden"
+      className="relative pt-12 lg:pt-16 pb-12 lg:pb-16 bg-white dark:bg-gray-950 overflow-hidden"
     >
       {/* ── Background texture ─────────────────────────────────────── */}
       <div
@@ -62,7 +62,7 @@ export default function GallerySection() {
         }}
       />
 
-      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-screen-xl mx-auto">
+      <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         
         {/* ── Header ───────────────────────────────────────────────── */}
         <motion.div
@@ -125,7 +125,7 @@ export default function GallerySection() {
               prevEl: '.swiper-button-prev-custom',
             }}
             loop={true}
-            className="w-full h-[400px] md:h-[500px] lg:h-[600px] group"
+            className="w-full h-[350px] md:h-[450px] lg:h-[500px] group"
           >
             {GALLERY_ITEMS.map((item, index) => (
               <SwiperSlide key={index} className="relative overflow-hidden">
@@ -153,7 +153,7 @@ export default function GallerySection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                   >
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 drop-shadow-md">
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-2 drop-shadow-lg">
                       {item.title}
                     </h3>
                     <p className="text-green-300 md:text-lg font-medium drop-shadow-sm max-w-2xl">

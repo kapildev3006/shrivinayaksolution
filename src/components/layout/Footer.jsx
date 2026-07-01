@@ -46,7 +46,7 @@ export default function Footer() {
   const contactInfo = siteContent.contact
 
   return (
-    <footer className="relative bg-[#020617] pt-20 pb-10 overflow-hidden border-t border-white/5">
+    <footer className="relative bg-[#020617] pt-12 pb-6 overflow-hidden border-t border-white/5">
       {/* ── Background Glow ────────────────────────────────────────── */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[400px] bg-green-500/5 rounded-[100%] blur-[120px] pointer-events-none"
@@ -60,14 +60,14 @@ export default function Footer() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-40px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 mb-10"
         >
           
           {/* Column 1: Company Info */}
           <motion.div variants={fadeUp} className="lg:pr-6">
-            <Link to="/" className="inline-flex items-center gap-2 mb-6 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-                <HiStar className="text-white text-xl" />
+            <Link to="/" className="inline-flex items-center gap-2 mb-4 group">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+                <HiStar className="text-white text-lg" />
               </div>
               <div className="flex flex-col">
                 <span className="font-black text-white text-lg tracking-tight leading-none group-hover:text-green-400 transition-colors">
@@ -78,7 +78,7 @@ export default function Footer() {
                 </span>
               </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-8">
+            <p className="text-gray-400 text-sm leading-relaxed mb-5">
               Delivering uncompromising precision and industrial excellence through advanced laser welding, CNC machining, and comprehensive manufacturing solutions since 1998.
             </p>
             {/* Social Icons */}
@@ -100,11 +100,11 @@ export default function Footer() {
 
           {/* Column 2: Quick Links */}
           <motion.div variants={fadeUp}>
-            <h4 className="text-white font-bold text-base mb-6 flex items-center gap-2">
+            <h4 className="text-white font-bold text-base mb-4 flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
               Quick Links
             </h4>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-2">
               {QUICK_LINKS.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -121,11 +121,11 @@ export default function Footer() {
 
           {/* Column 3: Services */}
           <motion.div variants={fadeUp}>
-            <h4 className="text-white font-bold text-base mb-6 flex items-center gap-2">
+            <h4 className="text-white font-bold text-base mb-4 flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
               Our Services
             </h4>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-2">
               {SERVICE_LINKS.map((link) => (
                 <li key={link.name}>
                   <Link
@@ -142,11 +142,11 @@ export default function Footer() {
 
           {/* Column 4: Contact Info */}
           <motion.div variants={fadeUp}>
-            <h4 className="text-white font-bold text-base mb-6 flex items-center gap-2">
+            <h4 className="text-white font-bold text-base mb-4 flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
               Contact Us
             </h4>
-            <ul className="flex flex-col gap-5">
+            <ul className="flex flex-col gap-3">
               <li className="flex items-start gap-3">
                 <HiLocationMarker className="text-green-400 flex-shrink-0 mt-0.5" size={18} />
                 <span className="text-gray-400 text-sm leading-relaxed">
@@ -176,7 +176,7 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
           viewport={{ once: true }}
-          className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
+          className="pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
         >
           <p className="text-gray-500 text-sm text-center md:text-left">
             &copy; {currentYear} Shri Vinayak Engineering Solutions. All rights reserved.

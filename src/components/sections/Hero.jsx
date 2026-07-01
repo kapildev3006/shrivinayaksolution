@@ -88,7 +88,7 @@ export default function Hero() {
               <div className="w-10 h-0.5 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 mb-3 ml-auto" />
 
               {/* Machine Description */}
-              <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed max-w-xs">
+              <p className="text-gray-200 text-sm leading-relaxed max-w-xs drop-shadow-md">
                 {currentMachine.description}
               </p>
             </motion.div>
